@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      display: flex;
+      justify-content: center;
+    }
+    #parent-container {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      gap: 10px;
+    }
+    #card-box {
+      
+      display: flex;
+        flex-direction: column;
+        border: 1px solid silver;
+        padding: 8px;
+    }
+    p {
+      padding: 5px 0;
+      font-weight: 600;
+    
+    }
+    img{
+      width: 100px;
+        height: 100px;
+        object-fit: fill;
+        padding-bottom: 15px;
+        padding-left: 90px;
+    }
+  </style>
+  <body>
+    <div id="parent-container"></div>
+  </body>
+</html>
+
+<script>
+  fetch("https://fakestoreapi.com/products")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data)
+      const printdata = document.createDocumentFragment()
+      console.log(printdata)
+      for (let i = 0; i < data.length; i++) {
+
+        const id = data[i].id;
+        const title = data[i].title;
+        const category = data[i].category;
+        const image = data[i].image;
+        const price = data[i].price;
+
+      
+        const parent = document.getElementById("parent-container");
+        const box = document.createElement("div");
+        box.id = "card-box"
+        box.innerHTML = (`
+            <img src="${image}" alt="">
+            <p>id: <span>${id}</span></p>
+            <p>title: <span>${title}</span></p>
+            <p>category: <span>${category}</span></p>
+            <p>price: <span>${price}</span></p>
+        `);
+        printdata.append(box);
+        document.getElementById("parent-container").appendChild(printdata)
+
+
+    
+      }
+    });
+</script>
